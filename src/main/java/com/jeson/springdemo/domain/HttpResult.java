@@ -1,19 +1,46 @@
 package com.jeson.springdemo.domain;
 
-import org.springframework.util.StringUtils;
-
 public class HttpResult<T> {
 
-    private Integer code;
-    private String  message;
-    private Long timestamp = System.currentTimeMillis();
+
+    private int code = Code.SUCCESS.code;
+    private String message = Code.SUCCESS.message;
+    private long timeStamp = System.currentTimeMillis();
     private T data;
 
-    public Integer getCode() {
+    public HttpResult() {
+    }
+
+    public HttpResult(T data) {
+        this.data = data;
+    }
+
+    public HttpResult(Code code) {
+        this.code = code.code;
+        this.message = code.message;
+    }
+
+    public HttpResult(Code code, T data) {
+        this.code = code.code;
+        this.message = code.message;
+        this.data = data;
+    }
+
+    public HttpResult(int code, String message) {
+        this(code, message, null);
+    }
+
+    public HttpResult(int code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    public int getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
@@ -25,12 +52,12 @@ public class HttpResult<T> {
         this.message = message;
     }
 
-    public Long getTimestamp() {
-        return timestamp;
+    public long getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setTimestamp(Long timestamp) {
-        this.timestamp = timestamp;
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public T getData() {
@@ -43,34 +70,35 @@ public class HttpResult<T> {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("HttpResult{");
-        sb.append("code=").append(code);
-        sb.append(", message='").append(message).append('\'');
-        sb.append(", timestamp=").append(timestamp);
-        sb.append(", data=").append(data);
-        sb.append('}');
-        return sb.toString();
+        return toString(0, "");
     }
 
-    public static <T> HttpResult<T> create(Type type, String msg, T data) {
-        HttpResult<T> result = new HttpResult<>();
-        result.setCode(type.code);
-        result.setMessage(type.message + (StringUtils.isEmpty(msg) ? "" : ", " + msg));
-        result.setData(data);
-        return result;
+    public String toString(int indentCount, String firstString) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < indentCount; i++) {
+            sb.append("\t");
+        }
+        String indent = sb.toString();
+        return "\n" + firstString + indent + "HttpResult:" +
+                "\n" + firstString + "\t" + indent + "Code: \t\t" + code +
+                "\n" + firstString + "\t" + indent + "Message: \t" + message +
+                "\n" + firstString + "\t" + indent + "TimeStamp: \t" + timeStamp +
+                "\n" + firstString + "\t" + indent + "Data: \t\t" + data;
     }
 
-    public enum Type {
-        SUCCESS(0, "成功"),
-        ERROR(1, "失败");
+    public enum Code {
+        SUCCESS(0, "success"),
+        UNKNOWN(1, "unknown");
 
-        private Integer code;
-        private String  message;
+        private int code;
+        private String message;
 
-        Type(Integer code, String message) {
+        Code(int code, String message) {
             this.code = code;
             this.message = message;
         }
+
     }
+
 
 }
