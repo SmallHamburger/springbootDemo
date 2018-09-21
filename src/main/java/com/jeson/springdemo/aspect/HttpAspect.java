@@ -20,7 +20,7 @@ public class HttpAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpAspect.class);
 
-    private static final ThreadLocal<Long> BEFORE_HANDLE_TIMESTAMP = new ThreadLocal<>();
+    private static final ThreadLocal<Long> BEFORE_HANDLE_TIMESTAMP_NANOSECOND = new ThreadLocal<>();
 
     @Pointcut("execution(public * com.jeson.springdemo.controller.*.*(..))")
     private void httpRequestLog() {
@@ -49,12 +49,12 @@ public class HttpAspect {
                 "\n│\t\t\tArguments:\t" + (args == null ? "" : Arrays.toString(args)) +
                 "\n└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘";
         LOGGER.info(msg);
-        BEFORE_HANDLE_TIMESTAMP.set(System.currentTimeMillis());
+        BEFORE_HANDLE_TIMESTAMP_NANOSECOND.set(System.nanoTime());
     }
 
     @After("httpRequestLog()")
     private void after() {
-        Long lastHandleTimestamp = BEFORE_HANDLE_TIMESTAMP.get();
+        Long lastHandleTimestamp = BEFORE_HANDLE_TIMESTAMP_NANOSECOND.get();
         if (lastHandleTimestamp == null) {
             return;
         }
@@ -62,7 +62,7 @@ public class HttpAspect {
                 "\n┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐" +
                 "\n│\tRequest End:" +
                 "\n│\t\tTime:" +
-                "\n│\t\t\tUsed:\t\t" + (System.currentTimeMillis() - lastHandleTimestamp) + "ms" +
+                "\n│\t\t\tUsed:\t\t" + (System.nanoTime() - lastHandleTimestamp) + "ns" +
                 "\n└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘";
         LOGGER.info(msg);
     }
