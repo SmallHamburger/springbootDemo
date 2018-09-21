@@ -28,6 +28,9 @@ public class HttpAspect {
 
     @Before("httpRequestLog()")
     private void before(JoinPoint joinPoint) {
+        if (!LOGGER.isDebugEnabled()) {
+            return;
+        }
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
             return;
@@ -53,6 +56,9 @@ public class HttpAspect {
 
     @After("httpRequestLog()")
     private void after() {
+        if (!LOGGER.isDebugEnabled()) {
+            return;
+        }
         Long lastHandleTimestamp = BEFORE_HANDLE_TIMESTAMP_NANOSECOND.get();
         if (lastHandleTimestamp == null) {
             return;
@@ -70,6 +76,9 @@ public class HttpAspect {
 
     @AfterReturning(pointcut = "httpRequestLog()", returning = "obj")
     private void returning(Object obj) {
+        if (!LOGGER.isDebugEnabled()) {
+            return;
+        }
         String msg = "" +
                 "\n┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐" +
                 "\n│\tRequest Return:" +

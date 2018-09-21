@@ -1,9 +1,9 @@
 {
   "properties": [
     {
-      "name": "project.debug",
+      "name": "project",
       "type": "java.lang.String",
-      "description": "Description for project.debug."
+      "description": "Description for project."
     }
   ]
 }

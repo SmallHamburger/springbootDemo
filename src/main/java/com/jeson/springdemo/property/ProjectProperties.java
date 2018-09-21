@@ -7,13 +7,4 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "project")
 public class ProjectProperties {
 
-    private boolean debug;
-
-    public boolean isDebug() {
-        return debug;
-    }
-
-    public void setDebug(boolean debug) {
-        this.debug = debug;
-    }
 }

@@ -1,3 +1,30 @@
 spring:
   profiles:
     active: dev
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.30.255.27:3306/jeson?useSSL=false
+    username: root
+    password: vixtel
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+server:
+  port: 80
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    root: error
+    com.jeson.springdemo: error
+  path: log
+
+project:
+
+
+

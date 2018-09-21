@@ -1,20 +1,12 @@
-server:
-  port: 8080
-  servlet:
-    context-path: /
-
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://172.30.255.27:3306/jeson
-    username: root
-    password: vixtel
-
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
 
-project:
-  debug: false
+logging:
+  level:
+    root: error
+    com.vixtel.modelelf: error
+  path: log
 
