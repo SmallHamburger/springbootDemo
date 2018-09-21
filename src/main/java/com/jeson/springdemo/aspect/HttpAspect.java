@@ -58,11 +58,13 @@ public class HttpAspect {
         if (lastHandleTimestamp == null) {
             return;
         }
+        long usedTime = System.nanoTime() - lastHandleTimestamp;
+        double microTime = usedTime / 1000000.0;
         String msg = "" +
                 "\n┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐" +
                 "\n│\tRequest End:" +
                 "\n│\t\tTime:" +
-                "\n│\t\t\tUsed:\t\t" + (System.nanoTime() - lastHandleTimestamp) + "ns" +
+                "\n│\t\t\tUsed:\t\t" + microTime + "ms" +
                 "\n└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘";
         LOGGER.info(msg);
     }
