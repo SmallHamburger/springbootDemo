@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "project.debug",
+      "type": "java.lang.String",
+      "description": "Description for project.debug."
+    }
+  ]
+}

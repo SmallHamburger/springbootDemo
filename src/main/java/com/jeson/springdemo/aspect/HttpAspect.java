@@ -22,9 +22,8 @@ public class HttpAspect {
 
     private static final ThreadLocal<Long> BEFORE_HANDLE_TIMESTAMP_NANOSECOND = new ThreadLocal<>();
 
-    @Pointcut("execution(public * com.jeson.springdemo.controller.*.*(..))")
+    @Pointcut("execution(* com.jeson.springdemo.controller.*.*(..))")
     private void httpRequestLog() {
-        LOGGER.info("Generate httpRequestLog() pointcut");
     }
 
     @Before("httpRequestLog()")

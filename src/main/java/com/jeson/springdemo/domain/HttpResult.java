@@ -30,6 +30,7 @@ public class HttpResult<T> {
         this(code, message, null);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public HttpResult(int code, String message, T data) {
         this.code = code;
         this.message = message;
@@ -88,10 +89,11 @@ public class HttpResult<T> {
 
     public enum Code {
         SUCCESS(0, "success"),
-        UNKNOWN(1, "unknown");
+        UNKNOWN(1, "unknown"),
+        FAILED(2, "failed");
 
-        private int code;
-        private String message;
+        public final int code;
+        public final String message;
 
         Code(int code, String message) {
             this.code = code;
