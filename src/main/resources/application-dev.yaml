@@ -9,6 +9,7 @@ spring:
     url: jdbc:mysql://172.30.255.27:3306/jeson
     username: root
     password: vixtel
+
   jpa:
     hibernate:
       ddl-auto: update
